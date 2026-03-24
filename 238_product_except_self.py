@@ -1,21 +1,20 @@
-# [EASY] https://leetcode.com/problems/product-of-array-except-self
-# Completed 2026/02/22
-class Solution(object):
-    def productExceptSelf(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        prod = 1
-        first_pass = [1]
-        for i in range(1, len(nums)):
-            prod = first_pass[-1] * nums[i - 1]
-            first_pass.append(prod)
-        print(first_pass)
-
-        res = [0] * len(nums)
+# [MEDIUM] https://leetcode.com/problems/product-of-array-except-self
+# Completed 2026/03/24
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        prefix = [1]
         curr = 1
-        for j in range(len(nums) - 1, -1, -1):
-            res[j] = first_pass[j] * curr
-            curr *= nums[j]
+        for i in nums:
+            curr *= i
+            prefix.append(curr)
+        
+        suffix = [1]
+        curr = 1
+        for i in range(len(nums) - 1, -1, -1):
+            curr *= nums[i]
+            suffix.append(curr)
+        
+        res = []
+        for k in range(len(nums)):
+            res.append(prefix[k] * suffix[len(nums) - 1 - k])
         return res
