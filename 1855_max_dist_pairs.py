@@ -1,0 +1,16 @@
+# [MEDIUM] https://leetcode.com/problems/maximum-distance-between-a-pair-of-values
+# Completed 2026/04/18
+class Solution:
+    def maxDistance(self, nums1: List[int], nums2: List[int]) -> int:
+        i = 0
+        res = 0
+
+        for j in range(len(nums2)):
+            while i < len(nums1) and nums1[i] < nums2[j]:
+                i += 1
+            
+            if i == len(nums1):
+                break
+            
+            res = max(res, j-i)
+        return res
